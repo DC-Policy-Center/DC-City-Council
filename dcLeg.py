@@ -13,27 +13,27 @@ API help from DC Council Website:http://lims.dccouncil.us/api/Help
 #End of intro comments
 import requests, json, pprint, pandas
 
-rowLimit = '1000' #seems to be the max limit
-offSet = 1000 #will change to string in the URI
+rowLimit = '100' #seems to be the max limit
+offSet = 0 #will change to string in the URI
 s_V ='Voting/Search?rowLimit=%s&offSet=%i&SearchCriteria'%(rowLimit,offSet)
-
-
 searchType = s_V
 
 q = {}
+'''
 q ={
 
     "StartDate":"2010-01-01",
     "EndDate":"2017-02-17"
 
 }
-
+'''
 
 head = {'content-type':'application/json'}
 
 website = 'http://lims.dccouncil.us/api/v1/'+searchType
+print('\n\nWebsite:'+website)
 response = requests.post(website,data=json.dumps(q),headers=head)
-print(response)
+print(response.text)
 data_json = response.json()
 
 
