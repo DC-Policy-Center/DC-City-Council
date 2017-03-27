@@ -12,16 +12,30 @@ API help from DC Council Website:http://lims.dccouncil.us/api/Help
 '''
 #End of intro comments
 import requests, json, pprint, pandas
-
+gOp = 'GET'
 rowLimit = '100' #seems to be the max limit
 offSet = 0 #will change to string in the URI
-s_V ='Voting/Search?rowLimit=%s&offSet=%i&SearchCriteria'%(rowLimit,offSet)
-searchType = s_V
+councilPeriod = '22'
+legislationNumber = 'IG22-0013'
 
-q = {}
+
+#Legislation
+sL_LL ='Legislation/LatestLaws?%s'%(rowLimit)
+sL_LN ='Legislation/Details?legislationNumber=%s'%(legislationNumber) #GET
+sL_AS ='Legislation/AdvancedSearch?%s'%(rowLimit) #POST
+
+#Voting
+s_V ='Voting/Search?rowLimit=%s&offSet=%i&SearchCriteria'%(rowLimit,offSet)
+#Master
+sM_CP = 'masters/Members?councilPeriod=%s'%councilPeriod
+sM_LS ='masters/LegislationStatus'
+searchType = sL_LN
+
+q = {
+ }
 '''
 q ={
-
+"CouncilPeriod": "22"
     "StartDate":"2010-01-01",
     "EndDate":"2017-02-17"
 
@@ -32,12 +46,20 @@ head = {'content-type':'application/json'}
 
 website = 'http://lims.dccouncil.us/api/v1/'+searchType
 print('\n\nWebsite:'+website)
-response = requests.post(website,data=json.dumps(q),headers=head)
-print(response.text)
+
+if gOp == 'GET':
+    response = requests.get(website,data=json.dumps(q),headers=head)
+elif gOp == 'POST':
+    response = requests.post(website,data=json.dumps(q),headers=head)
+
+try:
+    print(response.text)
+except:
+    pass
 data_json = response.json()
 
 
-with open('dclims.json','a') as f:
+with open('dclims.json','w') as f:
     toWrite = json.dumps(response.json())
     pprint.pprint(toWrite,f)
 f.close()
@@ -48,3 +70,10 @@ for leg in data_json:
     index+=1
 
 print(index)
+
+
+with open('output.txt','w') as f:
+    pprint.pprint(data_json[0].keys(),f)
+    for i in range(len(data_json)):
+        pprint.pprint(data_json[i]['LegislationNumber'],f)
+f.close()
