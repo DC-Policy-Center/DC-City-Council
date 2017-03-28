@@ -1,4 +1,4 @@
-#DC City Council
+# DC City Council
 We will fill this folder with DC City Council relevant code and data.  
 
 
@@ -12,5 +12,4 @@ We will fill this folder with DC City Council relevant code and data.
 |dcLegislation.py|Early framework for API helper|
 |dclims.json| Output json file from dcLeg.py|
 |New Legislation as of 3_28_17.csv|Frozen/saved output file from newLegislationPull.py|
-|newLegislation.json|Output json file from newLegislationPull.py|
 |New Legislation.csv|Final output file from newLegislationPull.py|
