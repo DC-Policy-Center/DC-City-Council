@@ -11,5 +11,7 @@ We will fill this folder with DC City Council relevant code and data.
 |newLegislationPull.py|This will call the DC LIMS API for all legislation from the 22nd council period, for each item it does a secondary call for details:introducer.  It outputs a .csv file of legislation.  !!!WARNING!!! High number of API calls, use infrequently|
 |dcLegislation.py|Early framework for API helper|
 |dclims.json| Output json file from dcLeg.py|
-|New Legislation as of 3_28_17.csv|Frozen/saved output file from newLegislationPull.py|
 |New Legislation.csv|Final output file from newLegislationPull.py|
+|Saved New Legislation Folder| Folder to contain saved output csv files from newLegislationPull.py|
+|Saved New Legislation/New Legislation as of 3_28_17.csv|Frozen/saved output file from newLegislationPull.py|
+|Saved New Legislation/New Legislation as of 3_29_17.csv|Frozen/saved output file from newLegislationPull.py|

@@ -1,6 +1,15 @@
 #Begin intro comments
 '''
-Dependencies: NONE;
+Dependencies:
+    *Self built methods*
+    - dcLegislation.py
+        - This method has a dependency on requests as well
+    *Libraries*
+    - json
+    - pprint
+    - pandas
+    - csv
+    - os
 API help from DC Council Website:http://lims.dccouncil.us/api/Help
 newLegislationPull.py is utilizes the advanced search feature in the LIMS API
 specifically to request details on all the legislation from the current (22)
@@ -14,17 +23,28 @@ council period.
 '''
 #End of intro comments
 #Requests for POST call, json for parsing, pprint for pretty print outputs, pandas for database, csv for csv writing
-import time
-tic = time.time() # Setting start time of program to do a time elapsed/ tic toc print statement
-import requests, json, pprint, pandas, csv, dcLegislation, os
+
+import requests, json, pprint, pandas, csv, dcLegislation
+
+#Initial options for user
+verbose = True                                      #Prints out statements to command line about the process being run
+tic_toc_track = True                                #Keeps track of the time elapsed for each process
+if(tic_toc_track == True):
+    import time                                     #Import time for tic_toc fuctionality
+    tic = time.time()                               # Setting start time of program to do a time elapsed/ tic toc print statement
+legislation_number_iteration_statement_mod = 30     #Sets how frequently the legislation print statement runs
 
 #Building Request
-verbose = True
-tic_toc_track = True
-rowLimit = '100'                               #seems to be the max limit
-offSet = 0                                     #will change to string in the URI
-q = {"CouncilPeriod": "22"}                    #Sets advanced search query to search for current council period (22)
-head = {'content-type':'application/json'}     #Requests JSON response
+#Sets advanced search query to search for current council period (22)
+query = {
+            'CouncilPeriod': '22'
+}
+
+options = {
+            'offset':'0',
+            'rowLimit':'100',
+            'query':query
+}
 
 
 csvHeader = []
@@ -38,17 +58,9 @@ introducerException = 0
 if(tic_toc_track):toc_initialize = time.time()
 
 
-
-
-
-#Building API call from request building
-
-website = 'http://lims.dccouncil.us/api/v1/'+'Legislation/AdvancedSearch?%s'%(rowLimit)
-if(verbose):print('Website: '+website)
-
-#Sending POST request
+# Using API helper to send POST request to LIMS
 if(verbose):print('\nRequest sent...')
-response = requests.post(website,data=json.dumps(q),headers=head)
+response = dcLegislation.post.advancedSearch(**options)
 data_json = response.json()
 
 if(verbose):print('\nCreating JSON file...')
@@ -70,10 +82,10 @@ with open('tmp.csv','w', newline='',encoding='utf-8') as f:
     csvWriter.writerow(csvHeader)
     for i in range(len(data_json)):
         if(verbose):
-            if(i%30 == 0):
+            if(i%legislation_number_iteration_statement_mod == 0):
                 print('\n!!! Processing Legislation number:%i of %i'%(i,len(data_json)))
         LN = data_json[i]['LegislationNumber']               # LN: Legislation Number
-        LND = dcLegislation.apiCalls.getDetails(LN)          # LND; Legislation Number Details
+        LND = dcLegislation.get.details(LN)          # LND; Legislation Number Details
         jLND = LND.json()                                    # jLND: JSON format of Legislation Number Details
         try:
             introducer = jLND['Legislation']['Introducer']   # The introducer of the legislation
@@ -104,6 +116,7 @@ if(tic_toc_track):toc_pandas_write = time.time()
 
 
 print('Cleaning up directory...')
+import os                               # Importing os to delete files in directory
 os.remove('newLegislation.json')
 os.remove('tmp.csv')
 

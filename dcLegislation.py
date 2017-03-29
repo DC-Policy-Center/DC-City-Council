@@ -16,13 +16,13 @@ API help from DC Council Website:http://lims.dccouncil.us/api/Help
 #Requests is used for all of the API calls.
 import requests, json
 
+def topLevelTest(toPrint):
+    print(toPrint)
+    return(toPrint)
 
-class apiCalls:
+class get:
 
-################################################################################
-#-------------------------- START OF GET STATEMENTS ---------------------------#
-################################################################################
-    def getLatestLaws(rowLimit,**kwargs):
+    def latestLaws(rowLimit,**kwargs):
         '''GETs latest legislation that have been made into official laws'''
 #*****************************************************************************#
         q = {}
@@ -36,7 +36,7 @@ class apiCalls:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
-    def getMostVisited(rowLimit,**kwargs):
+    def mostVisited(rowLimit,**kwargs):
         '''GETs most popular legislation. Count determines the number of
         legislation to be returned'''
 #*****************************************************************************#
@@ -51,7 +51,7 @@ class apiCalls:
         print('RESPONSE: '+ str(response))
         return(response)
 
-    def getDetails(legislationNumber,**kwargs):
+    def details(legislationNumber,**kwargs):
         '''When passed a complete Legislation number e.g., B21-1023, PR20-0300,
         returns the details of the Legislation. Legislation details has
         basic Legislation information, Hearing, Committee Markup,
@@ -67,7 +67,7 @@ class apiCalls:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
-    def getRequestOf(councilPeriod,**kwargs):
+    def requestOf(councilPeriod,**kwargs):
         '''Returns all the RequestOf entries by Council period'''
 
         verbose = kwargs.get('verbose',False)
@@ -78,15 +78,12 @@ class apiCalls:
         response = requests.get(website,data=json.dumps(q),headers=head)
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
-################################################################################
-#-------------------------- END OF GET STATEMENTS -----------------------------#
-################################################################################
 
 
-################################################################################
-#-------------------------- START OF POST STATEMENTS --------------------------#
-################################################################################
-    def postSearch(rowLimit,**kwargs):
+
+class post:
+
+    def search(rowLimit,**kwargs):
         '''Basic search on keyword and category.
         The results include all Legislation that have matched the search criteria.
         RowLimit limits the number of results.
@@ -103,7 +100,7 @@ class apiCalls:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
-    def postAdvancedSearch(rowLimit,**kwargs):
+    def advancedSearch(**kwargs):
         '''Advanced search into Legislation. Expects a LegislationSearchCriteria in the
         request body. The search criteria can include various combinations to search for
         Legislation that match. RowLimit limits the number of results. Offset defines
@@ -111,7 +108,9 @@ class apiCalls:
 #*****************************************************************************#
         verbose = kwargs.get('verbose',False)
         #Building Request
-        q = {"CouncilPeriod": "22"}                    #Sets advanced search query to search for current council period (22)
+        q = kwargs.get('query')
+        rowLimit = kwargs.get('rowLimit')
+        offSet = kwargs.get('offSet')
         head = {'content-type':'application/json'}     #Requests JSON response
         #Building API call from request building
         website = 'http://lims.dccouncil.us/api/v1/Legislation/AdvancedSearch?%s'%(rowLimit)
@@ -120,7 +119,7 @@ class apiCalls:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
-    def postVotingSearch(rowLimit,**kwargs):
+    def votingSearch(rowLimit,**kwargs):
         '''Voting search by using VoteSearchCriteria
         http://lims.dccouncil.us/api/Help/Api/POST-v1-Voting-Search_rowLimit_offSet'''
 #*****************************************************************************#
@@ -135,14 +134,14 @@ class apiCalls:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
-################################################################################
-#-------------------------- END OF POST STATEMENTS ----------------------------#
-################################################################################
+
 '''  *****************        APPENDICES   *************************
                     I.Changes to look into or needed
 1) Should I use a python core HTML request system
 2) Continue adding the rest of the API basic calls
 3) Decide on how to handle query statements, maybe through kwargs
+         - I am using kwargs with the postAdvancedSearch and it seems to work well
+         - Downside, the user needs to input all of the options in one dictionary
 
 
                     II.
