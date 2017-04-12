@@ -83,15 +83,23 @@ class get:
 
 class post:
 
-    def search(rowLimit,**kwargs):
+    def search(**kwargs):
         '''Basic search on keyword and category.
         The results include all Legislation that have matched the search criteria.
         RowLimit limits the number of results.
         OffSet defines the starting record in the result record set.'''
 #*****************************************************************************#
         verbose = kwargs.get('verbose',False)
+        try: kwargs.pop('verbose')
+        except: pass
+        rowLimit = kwargs.get('rowLimit')
+        try: kwargs.pop('rowLimit')
+        except: pass
+        offSet = kwargs.get('offSet')
+        try: kwargs.pop('offSet')
+        except: pass
         #Building Request
-        q = {}                    #Sets advanced search query to search for current council period (22)
+        q = kwargs
         head = {'content-type':'application/json'}     #Requests JSON response
         #Building API call from request building
         website = 'http://lims.dccouncil.us/api/v1/Legislation/Search?%s'%(rowLimit)
@@ -106,26 +114,44 @@ class post:
         Legislation that match. RowLimit limits the number of results. Offset defines
         the starting record in the result recordset.'''
 #*****************************************************************************#
+
+
         verbose = kwargs.get('verbose',False)
-        #Building Request
-        q = kwargs.get('query')
+        try: kwargs.pop('verbose')
+        except: pass
         rowLimit = kwargs.get('rowLimit')
+        try: kwargs.pop('rowLimit')
+        except: pass
         offSet = kwargs.get('offSet')
+        try: kwargs.pop('offSet')
+        except: pass
+
+
+        q = kwargs
         head = {'content-type':'application/json'}     #Requests JSON response
         #Building API call from request building
         website = 'http://lims.dccouncil.us/api/v1/Legislation/AdvancedSearch?%s'%(rowLimit)
+        if(verbose == True):print('WEBSITE: '+ str(website))
         #Sending POST request
         response = requests.post(website,data=json.dumps(q),headers=head)
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
-    def votingSearch(rowLimit,**kwargs):
+    def votingSearch(**kwargs):
         '''Voting search by using VoteSearchCriteria
         http://lims.dccouncil.us/api/Help/Api/POST-v1-Voting-Search_rowLimit_offSet'''
 #*****************************************************************************#
         verbose = kwargs.get('verbose',False)
-        #Building Request
-        q = {"CouncilPeriod": "22"}                    #Sets advanced search query to search for current council period (22)
+        try: kwargs.pop('verbose')
+        except: pass
+        rowLimit = kwargs.get('rowLimit')
+        try: kwargs.pop('rowLimit')
+        except: pass
+        offSet = kwargs.get('offSet')
+        try: kwargs.pop('offSet')
+        except: pass
+
+        q = kwargs
         head = {'content-type':'application/json'}     #Requests JSON response
         #Building API call from request building
         website = 'http://lims.dccouncil.us/api/v1/Voting/Search?%s'%(rowLimit)
@@ -135,6 +161,8 @@ class post:
         return(response)
 
 
+
+
 '''  *****************        APPENDICES   *************************
                     I.Changes to look into or needed
 1) Should I use a python core HTML request system
@@ -142,6 +170,13 @@ class post:
 3) Decide on how to handle query statements, maybe through kwargs
          - I am using kwargs with the postAdvancedSearch and it seems to work well
          - Downside, the user needs to input all of the options in one dictionary
+          * Example:
+                 query = {'rowLimit':100,'verbose':True,'StartDate':'01/01/2017'}
+            Call this query using:
+                 dcLegislation.post.advancedSearc(**query)
+            Note the ** to make your dictionary a kwarg or key word argument
+            This search will use advanced search to find legislation since 01/01/2017
+            while printing out in verbose mode and limiting to 100 rows
 
 
                     II.
