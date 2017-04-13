@@ -79,8 +79,6 @@ class get:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
-
-
 class post:
 
     def search(**kwargs):
@@ -160,13 +158,134 @@ class post:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
+class masters:
+        def limsLookUps(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/LIMSLookUps'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
 
+        def members(councilPeriod,**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/Members?councilPeriod=%s'%(councilPeriod)
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
 
+        def committees(councilPeriod,**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/Committees?councilPeriod=%s'%(councilPeriod)
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def hearingTypes(councipPeriod,**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/HearingTypes?councilPeriod=%s'%(councilPeriod)
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def councilPeriods(councilPeriods,**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/CouncilPeriods?councilPeriod=%s'%(councilPeriod)
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def legislationCategories(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/LegislationCategories'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def legislationTypes(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/LegislationTypes'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def placeRead(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/placeRead'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def places(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/Places'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def voteResponses(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/VoteResponses'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def voteTypes(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/VoteTypes'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
+
+        def legislationStatus(**kwargs):
+            verbose = kwargs.get('verbose',False)
+            q = {}
+            head = {'content-type':'application/json'}
+            website = 'http://lims.dccouncil.us/api/v1/masters/LegislationStatus'
+            if(verbose == True):print('GET- Details')
+            response = requests.get(website,data=json.dumps(q),headers=head)
+            if(verbose == True):print('RESPONSE: '+ str(response))
+            return(response)
 
 '''  *****************        APPENDICES   *************************
                     I.Changes to look into or needed
 1) Should I use a python core HTML request system
 2) Continue adding the rest of the API basic calls
+        - Finished adding in masters calls now (4/12)
+        - Masters calls untested/unverified (4/12)
+        - Finish documenting Masters
 3) Decide on how to handle query statements, maybe through kwargs
          - I am using kwargs with the postAdvancedSearch and it seems to work well
          - Downside, the user needs to input all of the options in one dictionary
