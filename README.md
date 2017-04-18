@@ -1,5 +1,9 @@
 # DC City Council
-We will fill this folder with DC City Council relevant code and data.  
+We will fill this folder with DC City Council relevant code and data.
+
+## LIMS API Wrapper
+Currently housed in the DC-City-Council repository is the dcLegislation.py API wrapper.
+It will, when completed, move to a different folder and ideally be launched to PyPI.
 
 
 
@@ -13,5 +17,3 @@ We will fill this folder with DC City Council relevant code and data.
 |dclims.json| Output json file from dcLeg.py|
 |New Legislation.csv|Final output file from newLegislationPull.py|
 |Saved New Legislation Folder| Folder to contain saved output csv files from newLegislationPull.py|
-|Saved New Legislation/New Legislation as of 3_28_17.csv|Frozen/saved output file from newLegislationPull.py|
-|Saved New Legislation/New Legislation as of 3_29_17.csv|Frozen/saved output file from newLegislationPull.py|

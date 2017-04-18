@@ -36,14 +36,20 @@ legislation_number_iteration_statement_mod = 30     #Sets how frequently the leg
 
 #Building Request
 #Sets advanced search query to search for current council period (22)
-query = {
-            'CouncilPeriod': '22'
-}
 
 options = {
+            #query section
+            'StartDate': '04/12/2017',
+
+
+            #api wrapper call options section
+            'verbose':False
+            
+            #api call options section
             'offset':'0',
             'rowLimit':'100',
-            'query':query
+
+
 }
 
 

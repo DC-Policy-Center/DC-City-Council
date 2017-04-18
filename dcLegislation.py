@@ -1,5 +1,5 @@
 '''
-This is the preliminary work for an API helper.  This API helper will call the
+This is the preliminary work for an API wrapper.  This API wrapper will call the
 D.C. LIMS API system, streamlining the calls.
 
 Dependencies: Requests;
@@ -167,6 +167,7 @@ class post:
                     I.Changes to look into or needed
 1) Should I use a python core HTML request system
 2) Continue adding the rest of the API basic calls
+        - Completed, TODO remove this comment by May 18th, 2017 after testing all basic API calls
 3) Decide on how to handle query statements, maybe through kwargs
          - I am using kwargs with the postAdvancedSearch and it seems to work well
          - Downside, the user needs to input all of the options in one dictionary
