@@ -8,5 +8,8 @@ from temporary files produced through:
 import os                               # Importing os to delete files in directory
 
 # Files produced from newLegislation.py
-os.remove('newLegislation.json')
-os.remove('tmp.csv')
+try:os.remove('newLegislation.json')
+except:pass
+
+try:os.remove('tmp.csv')
+except:pass
