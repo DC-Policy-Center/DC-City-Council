@@ -39,7 +39,7 @@ legislation_number_iteration_statement_mod = 30     #Sets how frequently the leg
 
 options = {
             #query section
-            'StartDate': '04/09/2017',
+            'StartDate': '05/14/2017',
 
 
             #api wrapper call options section
