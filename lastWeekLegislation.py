@@ -9,6 +9,7 @@ Dependencies:
     - pandas
     - csv
     - os
+    - datetime
 API help from DC Council Website:http://lims.dccouncil.us/api/Help
 newLegislationPull.py is utilizes the advanced search feature in the LIMS API
 specifically to request details on all the legislation from the current (22)
@@ -22,7 +23,7 @@ council period.
 '''
 #Requests for POST call, json for parsing, pprint for pretty print outputs, pandas for database, csv for csv writing
 
-import requests, json, pprint, pandas, csv, dcLegislation
+import requests, json, pprint, pandas, csv, dcLegislation, datetime
 
 #Initial options for user
 verbose = True                                      #Prints out statements to command line about the process being run
@@ -33,11 +34,18 @@ if(tic_toc_track == True):
 legislation_number_iteration_statement_mod = 30     #Sets how frequently the legislation print statement runs
 
 #Building Request
-#Sets advanced search query to search for current council period (22)
+# Hard coded to pull starting from 7 days ago.
+todays_date              =  datetime.date.today()
+days_to_subtract         =   7
+start_date_dateObj       =   todays_date - datetime.timedelta(days=days_to_subtract)
+start_date_year          =   str(start_date_dateObj.year)
+start_date_month         =   str(start_date_dateObj.month)
+start_date_day           =   str(start_date_dateObj.day)
+start_date_full_string   =   '%s/%s/%s'%(start_date_month,start_date_day,start_date_year)
 
 options = {
             #query section
-            'StartDate': '05/09/2017',
+            'StartDate': start_date_full_string,
 
 
             #api wrapper call options section
