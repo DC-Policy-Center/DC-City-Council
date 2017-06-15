@@ -21,10 +21,10 @@ def topLevelTest(toPrint):
     return(toPrint)
 
 class get:
-
+#*****************************************************************************#
     def latestLaws(rowLimit,**kwargs):
         '''GETs latest legislation that have been made into official laws'''
-#*****************************************************************************#
+
         q = {}
         verbose = kwargs.get('verbose',False)
         head = {'content-type':'application/json'}
@@ -36,10 +36,13 @@ class get:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
+
+        
+#*****************************************************************************#
     def mostVisited(rowLimit,**kwargs):
         '''GETs most popular legislation. Count determines the number of
         legislation to be returned'''
-#*****************************************************************************#
+
         verbose = kwargs.get('verbose',False)
         q = {}
         head = {'content-type':'application/json'}
@@ -51,13 +54,16 @@ class get:
         print('RESPONSE: '+ str(response))
         return(response)
 
+
+
+#*****************************************************************************#
     def details(legislationNumber,**kwargs):
         '''When passed a complete Legislation number e.g., B21-1023, PR20-0300,
         returns the details of the Legislation. Legislation details has
         basic Legislation information, Hearing, Committee Markup,
         Voting Summary, Mayor Review, Congress Review, Council Review,
         Other Documents, and Linked Legislation'''
-#*****************************************************************************#
+
         verbose = kwargs.get('verbose',False)
         q = {}
         head = {'content-type':'application/json'}
@@ -67,6 +73,9 @@ class get:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
+
+
+#*****************************************************************************#
     def requestOf(councilPeriod,**kwargs):
         '''Returns all the RequestOf entries by Council period'''
 
@@ -79,14 +88,20 @@ class get:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
+
+
+#*****************************************************************************#
 class post:
 
+
+
+#*****************************************************************************#
     def search(**kwargs):
         '''Basic search on keyword and category.
         The results include all Legislation that have matched the search criteria.
         RowLimit limits the number of results.
         OffSet defines the starting record in the result record set.'''
-#*****************************************************************************#
+
         verbose = kwargs.get('verbose',False)
         try: kwargs.pop('verbose')
         except: pass
@@ -106,12 +121,15 @@ class post:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
+
+
+#*****************************************************************************#
     def advancedSearch(**kwargs):
         '''Advanced search into Legislation. Expects a LegislationSearchCriteria in the
         request body. The search criteria can include various combinations to search for
         Legislation that match. RowLimit limits the number of results. Offset defines
         the starting record in the result recordset.'''
-#*****************************************************************************#
+
 
 
         verbose = kwargs.get('verbose',False)
@@ -135,10 +153,13 @@ class post:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
+
+
+#*****************************************************************************#
     def votingSearch(**kwargs):
         '''Voting search by using VoteSearchCriteria
         http://lims.dccouncil.us/api/Help/Api/POST-v1-Voting-Search_rowLimit_offSet'''
-#*****************************************************************************#
+
         verbose = kwargs.get('verbose',False)
         try: kwargs.pop('verbose')
         except: pass
@@ -158,7 +179,14 @@ class post:
         if(verbose == True):print('RESPONSE: '+ str(response))
         return(response)
 
+
+
+#*****************************************************************************#
 class masters:
+
+
+
+#*****************************************************************************#
         def limsLookUps(**kwargs):
             verbose = kwargs.get('verbose',False)
             q = {}
@@ -169,6 +197,9 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+#*****************************************************************************#
         def members(councilPeriod,**kwargs):
             verbose = kwargs.get('verbose',False)
             q = {}
@@ -179,6 +210,9 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+#*****************************************************************************#
         def committees(councilPeriod,**kwargs):
             verbose = kwargs.get('verbose',False)
             q = {}
@@ -189,6 +223,9 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+#*****************************************************************************#
         def hearingTypes(councipPeriod,**kwargs):
             verbose = kwargs.get('verbose',False)
             q = {}
@@ -199,6 +236,9 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+#*****************************************************************************#
         def councilPeriods(councilPeriods,**kwargs):
             verbose = kwargs.get('verbose',False)
             q = {}
@@ -209,6 +249,9 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+#*****************************************************************************#
         def legislationCategories(**kwargs):
             verbose = kwargs.get('verbose',False)
             q = {}
@@ -219,7 +262,12 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+#*****************************************************************************#
         def legislationTypes(**kwargs):
+            ''' List of all Legislation tpyes (legislation sub categories).
+            Returns Id, Name, Legislation Prefix, Legislation Category
+            and Sort Order of each Legislation type '''
             verbose = kwargs.get('verbose',False)
             q = {}
             head = {'content-type':'application/json'}
@@ -229,7 +277,12 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+
+#*****************************************************************************#
         def placeRead(**kwargs):
+            ''' List of all places where a Legislation could be introduced. Returns Id, Name, and Sort Order of each place read '''
             verbose = kwargs.get('verbose',False)
             q = {}
             head = {'content-type':'application/json'}
@@ -239,7 +292,10 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+#*****************************************************************************#
         def places(**kwargs):
+
             verbose = kwargs.get('verbose',False)
             q = {}
             head = {'content-type':'application/json'}
@@ -249,7 +305,11 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+#*****************************************************************************#
         def voteResponses(**kwargs):
+            ''' List of all vote responses. returns Id, Name, and Sort Order of each vote response '''
             verbose = kwargs.get('verbose',False)
             q = {}
             head = {'content-type':'application/json'}
@@ -259,7 +319,10 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+#*****************************************************************************#
         def voteTypes(**kwargs):
+            ''' Get all Vote by Types '''
             verbose = kwargs.get('verbose',False)
             q = {}
             head = {'content-type':'application/json'}
@@ -269,7 +332,11 @@ class masters:
             if(verbose == True):print('RESPONSE: '+ str(response))
             return(response)
 
+
+
+#*****************************************************************************#
         def legislationStatus(**kwargs):
+            ''' Get all Legislation Status '''
             verbose = kwargs.get('verbose',False)
             q = {}
             head = {'content-type':'application/json'}
