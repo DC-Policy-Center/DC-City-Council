@@ -30,18 +30,23 @@ tic_toc_track = True                                #Keeps track of the time ela
 if(tic_toc_track == True):
     import time                                     #Import time for tic_toc fuctionality
     tic = time.time()                               # Setting start time of program to do a time elapsed/ tic toc print statement
-legislation_number_iteration_statement_mod = 30     #Sets how frequently the legislation print statement runs
+legislation_number_iteration_statement_mod = 50     #Sets how frequently the legislation print statement runs
 
 #Building Request
 #Sets advanced search query to search for current council period (22)
-
+import datetime
+todays_date              =  datetime.date.today()
+days_to_subtract         =   1
+start_date_dateObj       =   todays_date - datetime.timedelta(days=days_to_subtract)
+start_date_year          =   str(start_date_dateObj.year)
+start_date_month         =   str(start_date_dateObj.month)
+start_date_day           =   str(start_date_dateObj.day)
+start_date_full_string   =   '%s/%s/%s'%(start_date_month,start_date_day,start_date_year)
 options = {
             #query section
-<<<<<<< HEAD
-            'StartDate': '05/09/2017',
-=======
-            'StartDate': '05/14/2017',
->>>>>>> d020b520ef769960f981b4efc933e82a46e35e49
+
+            'StartDate': start_date_full_string,
+
 
 
             #api wrapper call options section
@@ -70,7 +75,7 @@ if(tic_toc_track):toc_initialize = time.time()
 if(verbose):print('\nRequest sent...')
 response = dcLegislation.post.advancedSearch(**options)
 data_json = response.json()
-
+print(len(data_json))
 if(verbose):print('\nCreating JSON file...')
 with open('newLegislation.json','w') as f:
     toWrite = json.dumps(response.json())
