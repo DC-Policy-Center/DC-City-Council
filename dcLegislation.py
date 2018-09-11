@@ -1,4 +1,5 @@
 '''
+!!!! THE WRAPPER HAS BEEN UPLOADED TO PYPI AS dclims.
 This is the preliminary work for an API wrapper.  This API wrapper will call the
 D.C. LIMS API system, streamlining the calls.
 
@@ -37,7 +38,7 @@ class get:
         return(response)
 
 
-        
+
 #*****************************************************************************#
     def mostVisited(rowLimit,**kwargs):
         '''GETs most popular legislation. Count determines the number of
